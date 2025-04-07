@@ -1,13 +1,34 @@
 <template>
-    <div class="w-full flex justify-center h-full" >
-       <iframe src="https://smartpayz.gwcindia.in/smartpayz/G1-Single.php?Ce=GZ10219" frameborder="0" class="w-3/4 h-full" ></iframe>
+    <div class="w-full flex flex-col items-center h-full">
+      <button
+        @click="openIframe"
+        class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Open Iframe
+      </button>
+  
+      <iframe
+        v-if="iframeVisible"
+        :src="iframeSrc"
+        frameborder="0"
+        class="w-3/4 h-full"
+      ></iframe>
     </div>
-</template>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue'
 
-<script setup>
+  const iframeVisible = ref(false)
+  const iframeSrc = ref('')
 
-</script>
+  const openIframe = () => {
+    iframeSrc.value = `https://mpa.w3webtechnologies.co.in/client/login.php`
+    iframeVisible.value = true
+  }
+  </script>
+  
+  <style>
 
-<style >
-
-</style>
+  </style>
+  
