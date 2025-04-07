@@ -1,34 +1,30 @@
+<!-- <script setup>
+import { ref, watch } from 'vue';
+
+const phpBaseUrl = "https://smartpayz.gwcindia.in/smartpayz/G1-Single.php";
+const customCode = ref("GZ10219");
+const iframeSrc = ref(`${phpBaseUrl}?ce=${customCode.value}`);
+
+watch(customCode, (newCode) => {
+  iframeSrc.value = `${phpBaseUrl}?ce=${newCode}`;
+});
+</script>
+
 <template>
-    <div class="w-full flex flex-col items-center h-full">
-      <button
-        @click="openIframe"
-        class="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Open Iframe
-      </button>
-  
-      <iframe
-        v-if="iframeVisible"
-        :src="iframeSrc"
-        frameborder="0"
-        class="w-3/4 h-full"
-      ></iframe>
+  <div>
+    <h2>PHP Page in iFrame</h2>
+    <input v-model="customCode" placeholder="Enter custom code" />
+    <iframe :src="iframeSrc" width="100%" height="600px" frameborder="0"></iframe>
+  </div>
+</template> -->
+
+
+<template>
+    <div class="w-full h-full">
+        <iframe class="w-full h-full" :src="'https://smartpayz.gwcindia.in/smartpayz/G1-Single.php?ce=' + customCode" />
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-
-  const iframeVisible = ref(false)
-  const iframeSrc = ref('')
-
-  const openIframe = () => {
-    iframeSrc.value = `https://smartpayz.gwcindia.in/smartpayz/G1-Single.php?Ce=GZ10219`
-    iframeVisible.value = true
-  }
+  const customCode = "GZ10219";
   </script>
-  
-  <style>
-
-  </style>
-  
