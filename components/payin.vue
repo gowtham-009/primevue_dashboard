@@ -23,7 +23,7 @@
   const iframeSrc = ref('')
 
   const openIframe = () => {
-    iframeSrc.value = `https://mpa.w3webtechnologies.co.in/client/login.php`
+    iframeSrc.value = `https://smartpayz.gwcindia.in/smartpayz/G1-Single.php?Ce=GZ10219`
     iframeVisible.value = true
   }
   </script>
