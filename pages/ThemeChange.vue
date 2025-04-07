@@ -213,11 +213,11 @@
 import { ref, watch, onMounted } from 'vue';
 import Checkbox from 'primevue/checkbox';
 import 'primeicons/primeicons.css';
-import ChatIcon from './components/ChatIcon.vue';
-import BookmarkIcon from './components/BookmarkIcon.vue';
-import CalenderIcon from './components/CalenderIcon.vue';
-import UserIcon from './components/UserIcon.vue';
-import CommentsIcon from './components/CommentsIcon.vue';
+import ChatIcon from '~/components/ChatIcon.vue';
+import BookmarkIcon from '~/components/BookmarkIcon.vue';
+import CalenderIcon from '~/components/CalenderIcon.vue';
+import UserIcon from '~/components/UserIcon.vue';
+import CommentsIcon from '~/components/CommentsIcon.vue';
 
 import Tooltip from 'primevue/tooltip';
 
