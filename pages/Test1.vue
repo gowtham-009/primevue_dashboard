@@ -1,38 +1,33 @@
 <template>
-  <div
+  <div 
     :class="isSidebarOpen || isFixedSidebar ? 'min-h-screen flex relative lg:static bg-[#f8fafc]' : 'min-h-screen flex relative lg:static bg-[#f8fafc]'">
     <div id="app-sidebar-10"
       class="h-full lg:h-auto flex-shrink-0 left-0 top-0 z-20 border-r border-surface transition-all duration-300"
       :class="isFixedSidebar ? 'w-[300px]' : 'w-0'" @mouseenter="openSidebar" @mouseleave="handleMouseLeave">
-      <div class="flex h-full">
-        <div class="flex flex-col h-full bg-[#FFFFFF] flex-shrink-0 select-none border-r-2 border-dotted">
+      <div class="flex h-full" >
+        <div class="flex flex-col primary_color h-full  flex-shrink-0 select-none border-r-2 border-dotted">
           <div class="flex items-center justify-between flex-shrink-0 h-[60px] mx-5">
 
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center" >
               <svg height="36" viewBox="0 0 48 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M33.1548 9.65956L23.9913 4.86169L5.54723 14.5106L0.924465 12.0851L23.9913 0L37.801 7.23403L33.1548 9.65956ZM23.9931 19.3085L42.4255 9.65955L47.0717 12.0851L23.9931 24.1595L10.1952 16.9361L14.8297 14.5106L23.9931 19.3085ZM4.6345 25.8937L0 23.4681V37.9149L23.0669 50V45.1489L4.6345 35.4894V25.8937ZM18.4324 28.2658L0 18.6169V13.7658L23.0669 25.8403V40.2977L18.4324 37.8615V28.2658ZM38.7301 23.468V18.6169L24.9205 25.8403V49.9999L29.555 47.5743V28.2659L38.7301 23.468ZM43.3546 35.4892V16.1914L48.0008 13.7659V37.9148L34.1912 45.1488V40.2977L43.3546 35.4892Z"
-                  class="fill-[#2f449d]" />
+                  class="fill-white" />
               </svg>
             </div>
           </div>
-          <div class="overflow-y-auto mt-4">
+          <div class="overflow-y-auto mt-4" >
             <ul class="list-none py-4 px-2 m-0">
-              <li class="mb-2" v-for="(item, index) in menuItems" :key="index">
-                <a class="rounded-md flex items-center cursor-pointer   px-2 justify-center text-[#B29AFD] duration-150 transition-colors  "
-                  :class="{ '': activeTab2 === index }" @click="activeTab2 = index"
-                  @mouseenter="changeActiveTab(index)">
-                  <!-- v-tooltip="{ value: item.name, autoHide: false }" -->
-                  <!-- Keep icon color consistent with text-[#FFFFFF] -->
+              <li class="flex justify-center"  v-for="(item, index) in menuItems" :key="index">
 
-                  <!-- <i :class="['text-xl', item.icon, 'text-[#FFFFFF]'
-
-                    , { 'hover:text-gray-400': isSidebarOpen || isFixedSidebar }]" style="font-size: 1.5rem"></i> -->
-                  <component :is="item.component" class="text-xl text-[#B29AFD] hover:bg-[#dfeafa] p-2 rounded-md "
-                    :class="{ 'hover:text-gray-400': isSidebarOpen || isFixedSidebar }" style="font-size: 1.5rem">
-                  </component>
-
-                </a>
+                <div :class="{
+                    'bg-blue-50 text-blue-500': activeTab2 === index,
+                    'text-white': activeTab2 !== index
+                  }" @click="activeTab2 = index" @mouseenter="changeActiveTab(index)"
+                 class="w-8 h-8 rounded-md flex items-center mt-3  cursor-pointer justify-center duration-150 transition-colors" >
+                 <i :class="item.icon" class=" rounded-lg" style="font-size: 1.4rem;"></i>
+                </div>
+               
               </li>
             </ul>
           </div>
@@ -268,13 +263,21 @@ const selectComponent = (name) => {
   }
 }
 
-const menuItems = [
-  { component: ChatIcon, name: 'Dashboard' }, // Chat icon component
-  { component: BookmarkIcon, name: "Bookmarks" },
-  { component: UserIcon, name: "Team" },
-  { component: CommentsIcon, name: "Messages" },
-  { component: CalenderIcon, name: "Calender" },  // Bookmark icon component
+// const menuItems = [
+//   { component: ChatIcon, name: 'Dashboard' }, // Chat icon component
+//   { component: BookmarkIcon, name: "Bookmarks" },
+//   { component: UserIcon, name: "Team" },
+//   { component: CommentsIcon, name: "Messages" },
+//   { component: CalenderIcon, name: "Calender" },  // Bookmark icon component
 
+// ];
+
+const menuItems = [
+  { icon: 'pi pi-home', name: 'Dashboard' },
+  { icon: 'pi pi-bookmark', name: 'Bookmarks' },
+  { icon: 'pi pi-users', name: 'Team' },
+  { icon: 'pi pi-comments', name: 'Messages' },
+  { icon: 'pi pi-calendar', name: 'Calendar' },
 ];
 
 const menuItems2 = [
