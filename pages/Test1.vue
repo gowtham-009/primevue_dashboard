@@ -18,22 +18,19 @@
           </div>
           <div class="overflow-y-auto mt-4">
             <ul class="list-none py-4 px-2 m-0">
-  <li class="flex justify-center" v-for="(item, index) in menuItems" :key="index">
-    <div
-      :class="[
-        {
-          'bg-white text-[#0d2d5e]': activeTab2 === index,
-          'text-white hover:bg-white hover:text-[#0d2d5e]': activeTab2 !== index
-        },
-        clickedIndex === index ? 'blue-wave' : ''
-      ]"
-      @click="handleClick(index)"
-      class="w-12 h-12 rounded-md flex items-center mt-5 cursor-pointer justify-center duration-150 transition-colors relative overflow-hidden"
-    >
-      <i :class="item.icon" class="rounded-lg" style="font-size: 2rem;"></i>
-    </div>
-  </li>
-</ul>
+              <li class="flex justify-center" v-for="(item, index) in menuItems" :key="index">
+                <div :class="[
+                  {
+                    'bg-white text-[#0d2d5e]': activeTab2 === index,
+                    'text-white hover:bg-white hover:text-[#0d2d5e]': activeTab2 !== index
+                  },
+                  clickedIndex === index ? 'blue-wave' : ''
+                ]" @click="handleClick(index, $event)"
+                  class="w-12 h-12 rounded-md flex items-center mt-5 cursor-pointer justify-center duration-150 transition-colors relative overflow-hidden">
+                  <i :class="item.icon" class="rounded-lg" style="font-size: 2rem;"></i>
+                </div>
+              </li>
+            </ul>
 
 
           </div>
@@ -188,7 +185,7 @@
 
               </div>
             </div>
-            <div class=" px-4 font-semibold text-lg text-[#484e59]" :class="{ hidden: activeTab2 !== 3 }" >
+            <div class=" px-4 font-semibold text-lg text-[#484e59]" :class="{ hidden: activeTab2 !== 3 }">
               <!-- Messages -->
 
               <div class=" flex justify-center text-xs  my-10
@@ -216,9 +213,9 @@
       <div
         class="h-[60px] flex justify-between lg:justify-start items-center px-8 bg-[#ffffff] border-b border-surface relative">
       </div>
-      <div class="p-8 flex flex-col flex-auto" >
+      <div class="p-8 flex flex-col flex-auto">
         <div class="border-2 border-dashed rounded-border border-surface bg-[#ffffff] flex-auto p-5"
-          :class="{ 'w-[calc(100%-5px)] ': isFixedSidebar, ' ml-20': !isFixedSidebar }" >
+          :class="{ 'w-[calc(100%-5px)] ': isFixedSidebar, ' ml-20': !isFixedSidebar }">
           <!-- <Dashboard :client-name="clientName.value" :client-code="clientcode.value" /> -->
           <component :is="currentComponent" :customValue="clientcode" />
 
@@ -285,13 +282,26 @@ const menuItems = [
 ];
 
 
-function handleClick(index) {
-  clickedIndex.value = index;
+function handleClick(index, event) {
   activeTab2.value = index;
+  clickedIndex.value = index;
 
-  setTimeout(() => {
-    clickedIndex.value = null;
-  }, 600);
+  const target = event.currentTarget;
+  const circle = document.createElement('span');
+  const diameter = Math.max(target.clientWidth, target.clientHeight);
+  const radius = diameter / 2;
+
+  circle.style.width = circle.style.height = `${diameter}px`;
+  circle.style.left = `${event.offsetX - radius}px`;
+  circle.style.top = `${event.offsetY - radius}px`;
+  circle.classList.add('ripple');
+
+  const ripple = target.getElementsByClassName('ripple')[0];
+  if (ripple) {
+    ripple.remove();
+  }
+
+  target.appendChild(circle);
 }
 
 const menuItems2 = [
@@ -593,36 +603,21 @@ onMounted(async () => {
 }
 
 
-.blue-wave::after {
-  content: '';
+.ripple {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  background: rgba(0, 0, 0, 0.2);
-  /* ⬅️ Dark translucent black */
-  /* OR use dark blue: background: rgba(0, 51, 102, 0.3); */
-  transform: translateY(100%) skewY(-10deg);
-  animation: wave-rise 0.6s ease-out;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 600ms linear;
+  background-color: rgba(119, 118, 118, 0.6);
   pointer-events: none;
-  border-radius: inherit;
+  z-index: 0;
 }
 
-@keyframes wave-rise {
-  0% {
-    transform: translateY(100%) skewY(-10deg);
-    opacity: 0.6;
-  }
-
-  50% {
-    transform: translateY(0%) skewY(-10deg);
-    opacity: 0.3;
-  }
-
-  100% {
-    transform: translateY(-100%) skewY(-10deg);
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
     opacity: 0;
   }
 }
+
 </style>
